@@ -8,6 +8,9 @@ from django.contrib.auth import authenticate
 
 def Home(request):
     return render(request,"core/home.html")
+def showAds(request):
+    return render(request,"core/ads.html")
+
 def Signup(request):
     forms = CreateUser()
     if(request.method == "POST"):
