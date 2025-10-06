@@ -264,19 +264,23 @@ Earn By Ads
                                 </div>
                                 <div class="user-info">
                                     <p>Username</p>
-                                    <p>@${username}</p>
+                                    {%if request.user.is_authenticated%}
+                                    <p>{{request.user.username}}</p>
+                                    {%else%}
+                                    <p>Login First</p>
+                                    {%endif%}
                                 </div>
                             </div>
                             <div class="earnings-info">
                                 <div class="earnings-label">
                                     💰 Earned
                                 </div>
-                                <div class="earnings-amount">$${earnings.toFixed(2)}</div>
+                                {%if request.user.is_authenticated%}
+                                <div class="earnings-amount">{{request.user.earned}}</div>
+                                {%else%}
+                                <div class="earnings-amount">0</div>
+                                {%endif%}
                             </div>
-                        </div>
-                        <div class="profile-footer">
-                            <span>Total Balance</span>
-                            <span>$${earnings.toFixed(2)} USD</span>
                         </div>
                     </div>
                     <div class="bonus-card">
@@ -301,7 +305,7 @@ Earn By Ads
                             </div>
                         </button>
                         <p class="info-text">
-                            Watch video ads to earn money instantly. Your earnings are updated in real-time.
+                            Watch ads to earn money instantly. Your earnings are updated in real-time.
                         </p>
                     </div>
                 </div>
