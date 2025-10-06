@@ -1,0 +1,308 @@
+{%extends "base.html"%}
+{%block title%}
+Earn By Ads
+{%endblock title%}
+{%block style%}
+ <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: ghostwhite;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px;
+            padding-top: 48px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 448px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .header h1 {
+            color: rgb(66, 66, 66);
+            font-size: 2.25rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: rgb(65, 65, 65);
+            font-size: 1rem;
+        }
+
+        .profile-card {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            padding: 24px;
+            color: white;
+            margin-bottom: 32px;
+        }
+        .bonus-card {
+            background: linear-gradient(135deg, #f6673b 0%, #d8391d 100%);
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            padding: 24px;
+            color: white;
+            margin-bottom: 32px;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .profile-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-icon {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px;
+            border-radius: 50%;
+            backdrop-filter: blur(8px);
+        }
+
+        .user-info p:first-child {
+            font-size: 0.875rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .user-info p:last-child {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .earnings-info {
+            text-align: right;
+        }
+
+        .earnings-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .earnings-amount {
+            font-size: 1.875rem;
+            font-weight: bold;
+        }
+
+        .profile-footer {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+        }
+
+        .profile-footer span:first-child {
+            opacity: 0.75;
+        }
+
+        .profile-footer span:last-child {
+            font-weight: 600;
+        }
+
+        .ad-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding-top: 32px;
+        }
+
+        .ad-button {
+            position: relative;
+            width: 100%;
+            background: linear-gradient(to right, #10b981, #14b8a6);
+            color: white;
+            font-weight: bold;
+            font-size: 1.25rem;
+            padding: 24px 32px;
+            border-radius: 16px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .ad-button:hover:not(:disabled) {
+            background: linear-gradient(to right, #059669, #0d9488);
+            transform: scale(1.05);
+        }
+
+        .ad-button:active:not(:disabled) {
+            transform: scale(0.95);
+        }
+
+        .ad-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .button-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .button-subtitle {
+            font-size: 0.875rem;
+            margin-top: 4px;
+            opacity: 0.9;
+        }
+
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            width: 100%;
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: white;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .info-text {
+            color: rgb(68, 68, 68);
+            font-size: 0.875rem;
+            text-align: center;
+            max-width: 320px;
+        }
+
+        .loading-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-content {
+            text-align: center;
+        }
+
+        .spinner {
+            width: 64px;
+            height: 64px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 1.125rem;
+        }
+
+        .icon {
+            width: 32px;
+            height: 32px;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+
+        .icon-small {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+{%endblock%}
+{%block content%}
+  <div class="container">
+                    <div class="header">
+                        <h1>AdEarn</h1>
+                        <p>Watch ads, earn money</p>
+                    </div>
+
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-user">
+                                <div class="user-icon">
+                                    <svg class="icon" viewBox="0 0 24 24">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                </div>
+                                <div class="user-info">
+                                    <p>Username</p>
+                                    <p>@${username}</p>
+                                </div>
+                            </div>
+                            <div class="earnings-info">
+                                <div class="earnings-label">
+                                    💰 Earned
+                                </div>
+                                <div class="earnings-amount">$${earnings.toFixed(2)}</div>
+                            </div>
+                        </div>
+                        <div class="profile-footer">
+                            <span>Total Balance</span>
+                            <span>$${earnings.toFixed(2)} USD</span>
+                        </div>
+                    </div>
+                    <div class="bonus-card">
+                        
+                    </div>
+                    <div class="ad-section">
+                        <button id="adButton" class="ad-button">
+                            <div class="button-content">
+                                <svg class="icon" viewBox="0 0 24 24">
+                                    <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+                                    <polyline points="17 2 12 7 7 2"></polyline>
+                                </svg>
+                                <div>
+                                    <div id="buttonText">Watch Ad</div>
+                                    <a href="https://www.revenuecpmgate.com/cszdcei7?key=c254bc2e84cb7b8575e14c6427be862d">
+                                        <div id="buttonSubtitle" class="button-subtitle">Earn $0.10 per ad</div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="progress-bar" style="display: none;">
+                                <div id="progressFill" class="progress-fill"></div>
+                            </div>
+                        </button>
+                        <p class="info-text">
+                            Watch video ads to earn money instantly. Your earnings are updated in real-time.
+                        </p>
+                    </div>
+                </div>
+{%endblock%}
