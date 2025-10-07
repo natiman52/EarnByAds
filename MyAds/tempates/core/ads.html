@@ -255,7 +255,14 @@ Earn By Ads
     </style>
 {%endblock%}
 {%block content%}
-  <div class="container">
+<script>
+    function handleWatch(event){
+        if(event.detail.successful == true){
+            window.open(JSON.parse(event.detail.xhr.response).url,"_blank")
+        }   
+    }
+</script>
+  <div class="container" hx-headers='{"X-CSRFToken": "{{csrf_token}}"}'>
                     <div class="header">
                         <h1>AdEarn</h1>
                         <p>Watch ads, earn money</p>
@@ -294,18 +301,18 @@ Earn By Ads
                     <div class="bonus-card">
                         
                     </div>
-                    <div class="ad-section">
+                    <div hx-on::after-request="handleWatch(event)" hx-post="{%url 'core_ads' %}" hx-swap="none" class="ad-section">
                         <button id="adButton" class="ad-button">
                             <div class="button-content">
                                 <svg class="icon" viewBox="0 0 24 24">
                                     <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
                                     <polyline points="17 2 12 7 7 2"></polyline>
                                 </svg>
-                                <div>
+                                <div >
                                     <div id="buttonText">Watch Ad</div>
-                                    <a class="none-active" href="https://www.revenuecpmgate.com/cszdcei7?key=c254bc2e84cb7b8575e14c6427be862d">
+                                    <div class="none-active"  >
                                         <div id="buttonSubtitle" class="button-subtitle">Earn $0.10 per ad</div>
-                                    </a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="progress-bar" style="display: none;">

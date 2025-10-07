@@ -21,7 +21,8 @@ class UserManager(BaseUserManager):
 
 class MyUser(AbstractUser):
     username = models.CharField(max_length=225,unique=True)
-
+    earned = models.FloatField(default=0.00)
+    ads_watched = models.IntegerField(default=0)
     objects = UserManager()
     is_staff = models.BooleanField(default=False)
     USERNAME_FIELD = "username"
