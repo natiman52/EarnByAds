@@ -5,6 +5,7 @@ build/
 dist/
 wheels/
 *.egg-info
-
+MyAds/db.sqlite3
+clients.py
 # Virtual environments
 .venv
