@@ -24,7 +24,7 @@ def Signup(request):
     return render(request,"user/signup.html",{'form':forms})
 
 def Login(request):
-    error = None
+    error = False
     if request.method == "POST":
         user = request.POST.get("username")
         password = request.POST.get("password")

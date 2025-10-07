@@ -112,17 +112,17 @@
     {%block content%}
 
     <div class="container">
-         <div class=" rounded-3">
-                <p class="text-danger">username or password is wrong please check</p>
-            </div>
+                   {%if error%}      
+                   <div class=" rounded-3">
+                          <p class="text-danger">username or password is wrong please check</p>
+                      </div>
+            {%endif%}
         <h1 class="title">Login</h1>
         <p class="subtitle">Welcome back</p>
 
         <form class="form" method="post" action="">
             {%csrf_token%}
-            {%if error%}
-           
-            {%endif%}
+ 
             <div class="input-group">
                 <label class="label" for="username">Username</label>
                 <input
