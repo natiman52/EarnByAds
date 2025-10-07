@@ -258,7 +258,7 @@ Earn By Ads
 <script>
     function handleWatch(event){
         if(event.detail.successful == true){
-            window.open(JSON.parse(event.detail.xhr.response).url,"_blank")
+            window.open(JSON.parse(event.detail.xhr.response).url,"_self")
         }   
     }
 </script>
