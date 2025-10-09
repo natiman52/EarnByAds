@@ -9,3 +9,4 @@ MyAds/db.sqlite3
 clients.py
 # Virtual environments
 .venv
+runmy.sh

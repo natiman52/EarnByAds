@@ -11,7 +11,7 @@ def Home(request):
     return render(request,"core/home.html")
 def showAds(request):
     if(request.method == "POST"):
-        return JsonResponse(data={"url":"https://www.revenuecpmgate.com/cszdcei7?key=c254bc2e84cb7b8575e14c6427be862d"})
+        return JsonResponse(data={"url":"https://letlearncoding.com"})
     return render(request,"core/ads.html")
 
 def Signup(request):
